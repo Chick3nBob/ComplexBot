@@ -6,7 +6,6 @@ const sql = require("sqlite");
 var Canvas = require('canvas');
 const chalk = require('chalk');
 sql.open("./score.sqlite");
-sql.open("./global.sqlite");
 const config = require("./config.js");
 const ms = require("ms");
 const ytdl = require('ytdl-core');

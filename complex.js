@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const economy = require('discord-eco');
 const Enmap = require('enmap');
+const EnmapLevel = require('enmap-level');
 const moment = require('moment');
 const sql = require("sqlite");
 var Canvas = require('canvas');
@@ -23,6 +24,10 @@ app.listen(process.env.PORT);
 setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 2800);
+
+const tableSource = new EnmapLevel({name: "descriptions"});
+const descriptions = new Enmap({provider: tableSource});
+client.descriptions = new Enmap({name: "descriptions"});
 
 const newUsers = [];
 const queues = {};
@@ -659,6 +664,25 @@ if(command === "payfine") {
       message.author.send("Donate Here: https://paypal.me/chick3nbob\nJoin Here: https://discord.gg/XyU82fe")
   })
   }
+	
+  if(command === "desc") {
+	  if(!client.descriptions.get(message.author.id)){
+	client.descriptions.set(message.author.id, "No Description");
+ }
+
+const args = message.content.split(" ").slice(1);
+const description = args.join(" ");
+
+var testt = client.descriptions.get(message.author.id);
+
+testt = description;
+
+client.descriptions.set(message.author.id, testt);
+
+var test = client.descriptions.get(message.author.id);
+message.reply("Your description has been updated successfully.");
+
+}
   
   if (command === "setprefix") {
   if (!message.member.hasPermission("SPEAK")) return message.channel.send(`__**Access Denied**__\nYou must have __MANAGE_GUILD__ perms to use this command.`); // Checks for permissions to change the prefix

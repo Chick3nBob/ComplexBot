@@ -27,7 +27,7 @@ setInterval(() => {
 
 const tableSource = new EnmapLevel({name: "descriptions"});
 const descriptions = new Enmap({provider: tableSource});
-client.descriptions = new Enmap({name: "descriptions"});
+bot.descriptions = new Enmap({name: "descriptions"});
 
 const newUsers = [];
 const queues = {};
@@ -666,20 +666,20 @@ if(command === "payfine") {
   }
 	
   if(command === "desc") {
-	  if(!client.descriptions.get(message.author.id)){
-	client.descriptions.set(message.author.id, "No Description");
+	  if(!bot.descriptions.get(message.author.id)){
+	bot.descriptions.set(message.author.id, "No Description");
  }
 
 const args = message.content.split(" ").slice(1);
 const description = args.join(" ");
 
-var testt = client.descriptions.get(message.author.id);
+var testt = bot.descriptions.get(message.author.id);
 
 testt = description;
 
-client.descriptions.set(message.author.id, testt);
+bot.descriptions.set(message.author.id, testt);
 
-var test = client.descriptions.get(message.author.id);
+var test = bot.descriptions.get(message.author.id);
 message.reply("Your description has been updated successfully.");
 
 }

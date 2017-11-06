@@ -343,7 +343,11 @@ if(command === "server") {
 
   if(command === "restart") {
     if(message.author.id !== '228349229230325760') return;
-    message.channel.send("Shutting down...")
+	  var embed = new Discord.RichEmbed()
+	  .setDescription("Restarting...")
+	  return message.channel.send(embed)
+	message.channel.send("Restarting");
+	console.log("The bot has been restarted by " + message.author.tag);
     process.exit(1337);
   }
   

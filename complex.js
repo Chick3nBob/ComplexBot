@@ -844,13 +844,13 @@ if(command === "info") {
   var embed = new Discord.RichEmbed()
   .setAuthor("ComplexBotcn!6735", "https://cdn.discordapp.com/avatars/365143848571371521/0eabb8374af42ca3b4e6f1a27d5d3539.png?size=2048")
   .addField("Bot Name", "ComplexBot", true)
-  .addField("Owner", "MysticBcn!9712", true)
+  .addField("Owner", "MysticB#9712", true)
   .addField("Server Count", bot.guilds.size, true)
   .addField("Users", bot.users.size, true)
   .addField("Library", "Discord.js", true)
   .addField("Complex Bot's Server", "https://discord.gg/XyU82fe", true)
   .addField("Invite Me", "https://discordapp.com/oauth2/authorize?client_id=365143848571371521&scope=bot&permissions=8", true)
-  .addField("Contact", "Please contact `MysticBcn!9712` if you have any questions or use `cn!suggest` if you would anything to be added on bot.")
+  .addField("Contact", "Please contact `MysticB#9712` if you have any questions or use `cn!suggest` if you would anything to be added on bot.")
   return message.channel.send(embed);
 }
 

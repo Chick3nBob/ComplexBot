@@ -772,7 +772,7 @@ setTimeout(() => {
   if(command === "settings") {
   var embed = new Discord.RichEmbed()
   .setDescription("These commands are for welcome/leave messages and mod-logs")
-  .addField("cn!setModLog", "Sets a mod-log channel. ( Must need a channel called `mod-logs` )\n`cn!setprefix` | Changes the server's prefix")
+  .addField("cn!setModLog", "Sets a mod-log channel. ( Must need a channel called `mod-logs` )\n`cn!setprefix` | Changes the server's prefix\n`cn!desc` | Sets a description for you")
   return message.channel.send(embed)
 }
 
@@ -986,24 +986,40 @@ if(command === "commands") {
 
 
 if(command === "userinfo") {
-  let info = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
-  if(!info) return message.channel.send("You did not specify a user Mention");
-  let member = message.mentions.members.first();
-  let mention = message.mentions.users.first();
-  let embed = new Discord.RichEmbed()
-    .setDescription(`This is the info about **@${mention.username}cn!${mention.discriminator}**`)
+let user = message.mentions.members.first();
+if(!user){
+	var embed = new Discord.RichEmbed()
+	.setDescription(":x: **Error:** :x:\n`Please mention a user.`")
+	.setColor('RANDOM')
+	return message.channel.send(embed);
+	}
+    let uuser = user.user
+    var desc = bot.descriptions.get(uuser.id);
+    if(!desc){
+	desc = "`No Description`"
+	}
+    let bott = uuser.bot.toString()
+    let name = uuser.username.toString()
+    let dname = uuser.discriminator.toString()
+    let roles = user.roles.map(role => role.name).join(', ')
+    let id = uuser.id.toString()
+    let status = uuser.presence.status.toString()
+    if(bott == "true"){ bott = "True"
+                    }else { bott = "False"}
+    if(status == "dnd"){ status = "Do Not Disturb"}else if(status == "online"){status = "Online"}else if(status == "idle"){status = "Idle"}else{ status = "Offline"}
+    
+    var embed = new Discord.RichEmbed()
+    .setDescription("" + user.toString() + "'s Info")
+    .setThumbnail(uuser.avatarURL)
+    .addField("True Name", name + "#" + dname, true)
+    .addField("Name", uuser, true)
+    .addField("Roles", roles)
+    .addField("Bot", bott, true)
+    .addField("Status", status, true)
+    .addField("ID", id, true)
+    .addField("Description", desc) 
     .setColor('RANDOM')
-    .setThumbnail(`${member.user.avatarURL}`)
-    .addField("**Username : **", `${mention.username}`, true)
-    .addField("**User Discriminator :**", `cn!${mention.discriminator}`, true)
-    .addField("**User ID :**", `${member.id}`, true)
-    .addField("**Playing :**", `${member.user.presence.game === null ? "No Game" : member.user.presence.game.name}`, true)
-    .addField("**NickName :**", `${member.nickname}`, true)
-    .addField("**Roles :**", `${member.roles.map(r => r.name).join(" -> ")}`)
-    .addField("**Joined Guild :**", `${message.guild.joinedAt}`)
-    .addField("**Joined Discord :**", `${member.user.createdAt}`)
-    .setFooter(`User that triggered command -> ${message.author.username}cn!${mention.discriminator}`)
-  message.channel.send(embed);
+   return message.channel.send(embed);
 }
   
   if (command === "play"){
